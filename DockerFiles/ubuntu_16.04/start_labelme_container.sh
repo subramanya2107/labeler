@@ -2,7 +2,7 @@
 
 docker run \
 --name labeler \
--p 8089:80 \
+-p 8089:8080 \
 -d \
 --entrypoint "/bin/bash" \
 -t labeler

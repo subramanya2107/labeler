@@ -26,7 +26,7 @@ RUN a2enmod cgi
 COPY ports.conf /etc/apache2/ports.conf 
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY apache2.conf /etc/apache2/apache2.conf
-
+RUN chmod 777 /var/log/apache2/error.log
 #Clone LabelMe,move it and make
 RUN git clone https://github.com/subramanya2107/labeler.git
 RUN mv ./labeler/ /var/www/html/LabelMeAnnotationTool/
