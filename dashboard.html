@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+    *,
+    *:after,
+    *:before {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Avenir Next', Avenir, 'Helvetica Neue', 'Lato', 'Segoe UI', Helvetica, Arial, sans-serif;
+        overflow: hidden;
+        margin: 0;
+        color: #cecece;
+        background: white;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+        overflow-y: auto;
+        height: 100vh;
+    }
+
+    .bp-header {
+        display: -webkit-flex;
+        display: flex;
+    }
+
+    .bp-header__main {
+        margin: 0 0 0 auto;
+        padding: 2em 3em 0;
+        text-align: right;
+    }
+
+
+    .dummy-logo {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 100%;
+        padding: 1em 0 0 0;
+        text-align: center;
+        color: #3b3d4a;
+        background: #03A595;
+    }
+
+    #myBtn {
+        text-transform: uppercase;
+    background: transparent;
+    padding: 20px;
+    margin-right: 60px;
+    color: #03A595;
+    font-size: 13px;
+    font-weight: bold;
+    border: 2px solid #03A595 !important;
+    border-radius: 6px;
+    display: inline-block;
+    cursor: pointer;
+    }
+
+    #error {
+        display: none;
+    }
+
+    .modal {
+        display: none;
+        
+        position: fixed;
+        
+        z-index: 1;
+        
+        padding-top: 100px;
+        
+        left: 0;
+        top: 0;
+        width: 100%;
+        
+        height: 100%;
+        
+        overflow: auto;
+        
+        background-color: rgb(0, 0, 0);
+        
+        background-color: rgba(0, 0, 0, 0.4);
+        
+    }
+
+    
+    .modal-content {
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        position: relative;
+    z-index: 100;
+    cursor: default;
+    width: 500px;
+    min-height: 500px;
+    padding: 25px 25px 65px 25px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #101010;
+    }
+
+    .closeBtn {
+        color: #aaaaaa;
+    float: right;
+    font-size: 25px;
+    font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #ffffff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .replace-text{
+        border-bottom: 1px solid;
+    padding-bottom: 10px;
+    }
+
+    .select-style {
+    border: none;
+    overflow: hidden;
+    max-width: 263px;
+    border: 1px solid #DFDFDF;
+    border-radius: 5px;
+    line-height: -7px;
+    min-height: 35px;
+    border: none;
+    display: flex;
+    justify-content: center;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    border: none;
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #03A595;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}
+
+
+#wrapper {
+    height: 28px;
+    border: none;
+    overflow: hidden;
+    margin: 3em auto;
+    max-width: 263px;
+    border: 1px solid #DFDFDF;
+    border-radius: 5px;
+    background: #03A595;
+    color: #fff;
+    padding: 6px 0px;
+    line-height: -7px;
+    min-height: 35px;
+    border: none;
+    display: flex;
+    justify-content: center;
+}
+
+#fileSelect{
+    margin-left: 13px;
+    opacity: 0;
+    height: 35px;
+    margin-top: -6px;
+    z-index: 99;
+}
+
+.input-container {
+  margin: 3em auto;
+  max-width: 300px;
+  background-color: #EDEDED;
+  border-radius: 5px;
+  display: flex;
+}
+
+.file-info {
+  font-size: 0.9em;
+}
+.browse-btn {
+  background: #03A595;
+  color: #fff;
+  min-height: 35px;
+  padding: 10px;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.browse-btn:hover {
+  background: #4ec0b4;
+}
+.btn-container{
+    bottom: 40px;
+    position: absolute;
+    right: 30px;
+}
+.btn{
+    border-radius: 5px;
+    background: #03A595;
+    color: #fff;
+    line-height: -7px;
+    width: 150px;
+    min-height: 35px;
+    margin-right: 40px;
+}
+.list{
+    position: absolute;
+    margin-left:300px;
+    margin-top: 50px; 
+}
+
+#dataList{
+    font: 15px 'trebuchet MS', 'lucida sans';
+    padding: 0;
+    min-width: 800px;
+    margin: 4em 2em;
+}
+#dataList li{
+    position: relative;
+    display: flex;
+    padding: 1em;
+    margin: 1em 0;
+    background: #03A595;
+    border-left: 5px solid solid;
+    text-decoration: none;
+    border-radius: .3em;
+    border-left: 10px solid;
+    transition: all .3s ease-out;
+    justify-content: space-between;
+}
+.row1{
+    display: flex;
+}
+.logout{
+    cursor: pointer;
+     color: #03A595;
+    font-weight: bold;
+}
+.text-container{
+	overflow: hidden;
+	padding: 10px;
+    font-size: 20px;
+    border: 1px solid #DFDFDF;
+    border-radius: 5px;
+    line-height: -7px;
+    width: 400px;
+    height: 75px;
+    margin: auto;
+    display: flex;
+    justify-content: center;}
+    .text-label{
+    color:'white';
+    font-weight:bold;
+    margin-left:30px;}
+</style>
+
+<body onload="onload()">
+    <div class="container">
+        <header class="bp-header">
+             <div class="dummy-logo">
+      <a href="index.html"><img src="Icons/LabelMe_logo3.png" width="160px" height="160px" alt="LabelMe logo"></img></a>
+    </div>
+            <div class="bp-header__main">
+                <button id="myBtn"><span style="font-size: 17px">+</span> Create Project</button>
+                <span class="logout" onclick='logout()'>Logout</span>
+
+            </div>
+
+        </header>
+        <div class="list">
+            <ul id="dataList"></ul>
+            <div class="templates">
+                <div id="listItem">
+                    <div class="row1">
+                        <div class="title"></div>
+                    </div>
+                    <div class="row2">
+                        <div class="link"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="myModal" class="modal">
+
+
+        <div class="modal-content">
+            <span class="close closeBtn">&times;</span>
+            <h3 class="replace-text">Create Project</h3>
+            <div id="success">
+                <form action="http://34.204.148.215:8080/upload" method="post" enctype="multipart/form-data">
+                    <div id='wrapper'> <input type="file" id="fileSelect" name="zipfile" required>
+                        <div style="position: absolute">Upload File</div>
+                    </div>
+                    <div class="input-container">
+
+                        <button class="browse-btn">
+                            Choose
+                        </button>
+                        <div class="select-style file-info">
+                            <select id="input1" name="projecttype" required>
+                                <option value="1">classification</option>
+                                <option value="2">multiclass classification</option>
+                                <option value="3">segmentation</option>
+                                <option value="4">localization</option>
+                            </select>
+                        </div>
+                    </div>
+ 				<div><span class='text-label'>Labels</span><textarea name="objects" class="text-container"></textarea></div>
+                    <div class="btn-container"><button class="btn" type="button" id='cancel'>Cancel</button>
+                        <button class="btn" type="submit" >Upload</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div onclick='logout()'>Logout</div>
+    <div id="error">Not Authorised</div>
+    <script>
+       
+        function onload() {
+            var success = document.getElementById("success");
+            var error = document.getElementById("error");
+            /* if (!window.localStorage.getItem('token')) {
+                success.style.display = 'none'
+                error.style.display = 'block'
+            } */
+        }
+        
+
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+        var cancel = document.getElementById("cancel");
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        cancel.onclick = function () {
+            modal.style.display = "none";
+        }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        function ReadJSON(url,SuccessFunction,ErrorFunction) {
+      	  $.ajax({
+      	    type: "GET",
+      	    url: url,
+      	    dataType: "json",
+      	    success: SuccessFunction,
+      	    error: ErrorFunction
+      	  });
+      }
+        var listItemString = $('#listItem').html();
+        ReadJSON("http://34.204.148.215:8080/projects",function(dataObject){
+        	  dataObject.forEach(buildNewList);
+        })
+      
+
+        function buildNewList(item, index) {
+            var listItem = $('<li>' + listItemString + '</li>');
+            var listItemTitle = $('.title', listItem);
+            listItemTitle.html(item.name);
+         
+            var listItemDesc = $('.link', listItem);
+            listItemDesc.html('<a href="'+item.link+'">Annotate</a>');
+            $('#dataList').append(listItem);
+        }
+        
+        function logout() {
+            window.location = '/bin/'
+            window.localStorage.clear()
+        }
+    </script>
+</body>
+
+</html>
