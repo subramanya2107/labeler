@@ -22,7 +22,8 @@ RUN a2enmod include
 RUN a2enmod rewrite
 RUN a2enmod cgi
 
-# apache2 configuration: enabling SSI and perl/CGI scripts  
+# apache2 configuration: enabling SSI and perl/CGI scripts
+COPY ports.conf /etc/apache2/ports.conf 
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY apache2.conf /etc/apache2/apache2.conf
 
@@ -33,7 +34,7 @@ RUN cd /var/www/html/LabelMeAnnotationTool/ && make
 RUN chown -R www-data:www-data /var/www/html
 
 # port binding
-EXPOSE 80
+EXPOSE 8080
 
 # run
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

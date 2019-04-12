@@ -1,11 +1,11 @@
 #!/bin/bash
 
 docker run \
---name labelme \
--p 8087:80 \
+--name labeler \
+-p 8089:80 \
 -d \
 --entrypoint "/bin/bash" \
--t labelme
+-t labeler
 
 # restart apache inside the container
-docker exec labelme service apache2 restart
+docker exec labeler service apache2 restart
