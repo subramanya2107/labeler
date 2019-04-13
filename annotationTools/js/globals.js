@@ -5,7 +5,8 @@ var LM_xml;
 
 // URL of CGI script to submit XML annotation:
 //var SubmitXmlUrl = 'annotationTools/perl/submit.cgi';
-var NodeServerURL='http://34.204.148.215:8080'
+//var NodeServerURL='http://34.204.148.215:8080'
+var NodeServerURL='http://localhost:3000'
 var FetchProjectTypeInformation=NodeServerURL+'/collections_type/'
 var SubmitXmlUrl = NodeServerURL+'/submit';
 var SubmitClassificationUrl = NodeServerURL+'/submitclassification';

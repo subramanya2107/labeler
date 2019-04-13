@@ -18,23 +18,19 @@ RUN apt-get install -y \
 #RUN apt-get install php5 libapache2-mod-php5 -y
 
 # Config apache
-RUN a2enmod include
-RUN a2enmod rewrite
-RUN a2enmod cgi
+RUN a2enmod include && a2enmod rewrite && a2enmod cgi && a2enmod lbmethod_byrequests
 
 # apache2 configuration: enabling SSI and perl/CGI scripts
 COPY ports.conf /etc/apache2/ports.conf 
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY apache2.conf /etc/apache2/apache2.conf
-RUN chmod 777 /var/log/apache2/error.log
+
 #Clone LabelMe,move it and make
-RUN git clone https://github.com/subramanya2107/labeler.git
-RUN mv ./labeler/ /var/www/html/LabelMeAnnotationTool/
-RUN cd /var/www/html/LabelMeAnnotationTool/ && make
-RUN chown -R www-data:www-data /var/www/html
+RUN git clone https://github.com/subramanya2107/labeler.git &&  mv ./labeler/ /var/www/html/LabelMeAnnotationTool/ && cd /var/www/html/LabelMeAnnotationTool/ && make && chown -R www-data:www-data /var/www/html
+
 
 # port binding
 EXPOSE 8080
 
 # run
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+# CMD ["/usr/sbin/apache2ctl","-D","FOREGROUND"]
