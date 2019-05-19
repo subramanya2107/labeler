@@ -310,7 +310,7 @@
             <span class="close closeBtn">&times;</span>
             <h3 class="replace-text">Create Project</h3>
             <div id="success">
-                <form action="http://34.204.148.215:8080/upload" method="post" enctype="multipart/form-data">
+                <form action="http://localhost:3000/upload" method="post" enctype="multipart/form-data">
                     <div id='wrapper'> <input type="file" id="fileSelect" name="zipfile" required>
                         <div style="position: absolute">Upload File</div>
                     </div>
@@ -388,7 +388,7 @@
       	  });
       }
         var listItemString = $('#listItem').html();
-        ReadJSON("http://34.204.148.215:8080/projects",function(dataObject){
+        ReadJSON("http://localhost:3000/projects",function(dataObject){
         	  dataObject.forEach(buildNewList);
         })
       
@@ -399,7 +399,10 @@
             listItemTitle.html(item.name);
          
             var listItemDesc = $('.link', listItem);
-            listItemDesc.html('<a href="'+item.link+'">Annotate</a>');
+            if(item.name=="nodule")
+                listItemDesc.html('<a href="http://35.194.36.244:5000" target="_blank">Predict</a>&nbsp;&nbsp;<a href="#">Train</a>&nbsp;&nbsp;<a href="'+item.link+'">Annotate</a>');
+            else
+           		listItemDesc.html('<a href="#">Train</a>&nbsp;&nbsp;<a href="'+item.link+'">Annotate</a>');
             $('#dataList').append(listItem);
         }
         
