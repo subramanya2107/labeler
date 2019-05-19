@@ -29,8 +29,7 @@ COPY apache2.conf /etc/apache2/apache2.conf
 #Clone LabelMe,move it and make
 RUN git clone https://github.com/subramanya2107/labeler.git &&  mv ./labeler/ /var/www/html/LabelMeAnnotationTool/ && cd /var/www/html/LabelMeAnnotationTool/ && make && chown -R www-data:www-data /var/www/html
 
-RUN chown root:root /usr/sbin/apache2ctl
-RUN chmod 755 /usr/sbin/apache2ctl
+
 # port binding
 EXPOSE 8080
 
